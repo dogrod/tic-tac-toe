@@ -3,7 +3,7 @@ import Square from '../square/square'
 
 interface BoardProps {
   squares: SquareType[][],
-  onClick?: (i: number) => void
+  onClick?: (x: number, y: number) => void
 }
 
 const Board: React.SFC<BoardProps> = (props) => {
@@ -22,17 +22,17 @@ const Board: React.SFC<BoardProps> = (props) => {
   //   )
   // }
 
-  const renderRow = (row: SquareType[]) => {
-    const rowElement = row.map((square, squareIndex) => {
+  const renderRow = (row: SquareType[], rowIndex: number) => {
+    const rowElement = row.map((square, colIndex) => {
       return (
         <Square 
-         key={squareIndex}
+         key={colIndex}
          value={square} 
          onClick={() => {
            if (!props.onClick) {
              return
            }
-           props.onClick(squareIndex)
+           props.onClick(colIndex, rowIndex)
          }}
         />
       )
@@ -43,7 +43,7 @@ const Board: React.SFC<BoardProps> = (props) => {
   const renderBoard = props.squares.map((row, rowIndex): JSX.Element => {
     return (
       <div className="board__row" key={rowIndex}>
-        {renderRow(row)}
+        {renderRow(row, rowIndex)}
       </div>
     )
   })
