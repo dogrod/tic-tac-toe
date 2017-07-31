@@ -1,5 +1,4 @@
 {
-    "extends": ["tslint-react"],
     "rules": {
         "align": [
             true,
@@ -95,5 +94,9 @@
             "check-type",
             "check-typecast"
         ]
-    }
+    },
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ]
 }

@@ -1,53 +1,73 @@
 import * as React from 'react'
 import Square from '../square/square'
 
-type squareType = string | null
-
 interface BoardProps {
-  squares: Array<squareType>,
-  onClick: Function
+  squares: SquareType[][],
+  onClick?: (i: number) => void
 }
 
-interface State {
-  squares: Array<squareType>,
-  xIsNext: boolean
-}
-
-export default class Board extends React.Component<BoardProps, State> {
-  state: State = {
-    squares: Array(9).fill(null),
-    xIsNext: true
-  }
-
+const Board: React.SFC<BoardProps> = (props) => {
   // returns a square function
-  renderSquare(i: number): JSX.Element {
-    return (
-      <Square 
-        value={this.props.squares[i]} 
-        onClick={() => this.props.onClick(i)}
-      />
-    )
+  // const renderSquare = (i: number) => {
+  //   return (
+  //     <Square 
+  //       value={props.squares[i]} 
+  //       onClick={() => {
+  //         if (!props.onClick) {
+  //           return
+  //         }
+  //         props.onClick(i)
+  //       }}
+  //     />
+  //   )
+  // }
+
+  const renderRow = (row: SquareType[]) => {
+    const rowElement = row.map((square, squareIndex) => {
+      return (
+        <Square 
+         key={squareIndex}
+         value={square} 
+         onClick={() => {
+           if (!props.onClick) {
+             return
+           }
+           props.onClick(squareIndex)
+         }}
+        />
+      )
+    })
+    return rowElement
   }
 
-  render(): JSX.Element {
+  const renderBoard = props.squares.map((row, rowIndex): JSX.Element => {
     return (
-      <div>
-        <div className="board__row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board__row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board__row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+      <div className="board__row" key={rowIndex}>
+        {renderRow(row)}
       </div>
     )
-  }
+  })
+
+  return (
+    <div>
+      {renderBoard}
+      {/* <div className="board__row">
+        {renderSquare(0)}
+        {renderSquare(1)}
+        {renderSquare(2)}
+      </div>
+      <div className="board__row">
+        {renderSquare(3)}
+        {renderSquare(4)}
+        {renderSquare(5)}
+      </div>
+      <div className="board__row">
+        {renderSquare(6)}
+        {renderSquare(7)}
+        {renderSquare(8)}
+      </div> */}
+    </div>
+  )
 }
+
+export default Board

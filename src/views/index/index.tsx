@@ -1,11 +1,11 @@
 import * as React from 'react'
 import './index.css'
 
-import Game from '../../components/game/game'
+import Game from '../../components/game/game-dev'
 
 class Index extends React.Component<{}, {}> {
 
-  render(): JSX.Element {
+  public render(): JSX.Element {
     return (
       <div className="index">
         <Game />

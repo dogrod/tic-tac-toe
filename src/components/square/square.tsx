@@ -1,40 +1,22 @@
 import * as React from 'react'
 import './square.css'
 
-type squareType = string | null
-
 interface SquareProps {
-  value: squareType,
-  onClick: Function
+  value: SquareType,
+  onClick: () => void
 }
 
-interface State {
-  value?: squareType
+const Square: React.SFC<SquareProps> = (props) => {
+  return (
+    <button
+      className="square"
+      onClick={
+        () => props.onClick()
+      }
+    >
+      {props.value}
+    </button>
+  )
 }
 
-export default class Square extends React.Component<SquareProps, State> {
-  state: State = {
-    value: null
-  }
-
-  constructor() {
-    // super(): call the parent constructor
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super
-    super()
-  }
-
-  handleOnClick = () => {
-    this.props.onClick()
-  }
-
-  render(): JSX.Element {
-    return (
-      <button
-        className="square"
-        onClick={this.handleOnClick}
-      >
-        {this.props.value}
-      </button>
-    )
-  }
-}
+export default Square
