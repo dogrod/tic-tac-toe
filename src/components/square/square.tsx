@@ -11,7 +11,12 @@ const Square: React.SFC<SquareProps> = (props) => {
     <button
       className="square"
       onClick={
-        () => props.onClick()
+        () => {
+          if (props.value) {
+            return
+          }
+          props.onClick()
+        }
       }
     >
       {props.value}
