@@ -14,6 +14,7 @@ interface GameState {
 }
 
 const gameScale = 3
+
 const initSquare = (scale: number) => {
   const squares = Array(scale)
 
